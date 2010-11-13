@@ -11,10 +11,12 @@ module Xsendfile
   def xsendfile(options = {})
     package 'apache2-threaded-dev', :ensure => :installed
 
+    # --no-check-certificate is needed because GitHub has SSL turned on all the time
+    # but wget doesn't understand the wildcard SSL certificate they use (*.github.com)
     exec 'install_xsendfile',
       :cwd => '/tmp',
       :command => [
-        'wget http://github.com/nmaier/mod_xsendfile/raw/0.12/mod_xsendfile.c',
+        'wget https://github.com/nmaier/mod_xsendfile/raw/0.12/mod_xsendfile.c --no-check-certificate',
         'apxs2 -ci mod_xsendfile.c'
       ].join(' && '),
       :require => package('apache2-threaded-dev'),
