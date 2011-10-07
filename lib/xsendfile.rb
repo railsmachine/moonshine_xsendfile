@@ -32,14 +32,16 @@ module Xsendfile
       :alias => 'xsendfile_conf',
       :content => conf.join("\n"),
       :mode => '644',
-      :notify => service('apache2')
+      :notify => service('apache2'),
+      :require => package('apache2-threaded-dev')
 
     file '/etc/apache2/mods-available/xsendfile.load',
       :alias => 'load_xsendfile',
       :content => 'LoadModule xsendfile_module /usr/lib/apache2/modules/mod_xsendfile.so',
       :mode => '644',
       :require => file('xsendfile_conf'),
-      :notify => service('apache2')
+      :notify => service('apache2'),
+      :require => package('apache2-threaded-dev')
 
    a2enmod 'xsendfile', :require => file('load_xsendfile')
   end
