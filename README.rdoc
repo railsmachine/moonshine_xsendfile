@@ -7,7 +7,7 @@ A plugin for installing and managing mod_xsendfile[https://tn123.org/mod_xsendfi
 === Instructions
 
 * <tt>script/plugin install git://github.com/railsmachine/moonshine_xsendfile.git</tt>
-* Configure settings if needed (it probably isn't)
-    configure(:xsendfile => {:x_send_file_path => '/some/absolute/path'})
+* Configure settings. At the very least, you usually want to be able to xsend files from the rails_root:
+    configure :xsendfile => {:x_send_file_path => rails_root}
 * Include the recipe in your Moonshine manifest
     recipe :xsendfile
