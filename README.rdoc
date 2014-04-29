@@ -11,3 +11,7 @@ A plugin for installing and managing mod_xsendfile[https://tn123.org/mod_xsendfi
     configure :xsendfile => {:x_send_file_path => rails_root}
 * Include the recipe in your Moonshine manifest
     recipe :xsendfile
+
+=== Copyright
+
+Unless otherwise specified, all content copyright (C) 2014, Rails Machine
