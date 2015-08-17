@@ -16,7 +16,7 @@ module Xsendfile
     exec 'install_xsendfile',
       :cwd => '/tmp',
       :command => [
-        'wget https://github.com/railsmachine/moonshine_xsendfile/blob/master/lib/xsendfile.rb --no-check-certificate',
+        'wget https://raw.githubusercontent.com/nmaier/mod_xsendfile/master/mod_xsendfile.c --no-check-certificate',
         'apxs2 -ci mod_xsendfile.c'
       ].join(' && '),
       :require => package('apache2-threaded-dev'),
