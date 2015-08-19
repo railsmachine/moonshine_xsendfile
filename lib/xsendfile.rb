@@ -19,7 +19,10 @@ module Xsendfile
         'wget https://raw.githubusercontent.com/nmaier/mod_xsendfile/master/mod_xsendfile.c --no-check-certificate',
         'apxs2 -ci mod_xsendfile.c'
       ].join(' && '),
-      :require => package('apache2-threaded-dev'),
+      :require => [
+        package("apache2-mpm-worker"),
+        package("apache2-threaded-dev")
+      ],
       :before => service('apache2'),
       :creates => '/usr/lib/apache2/modules/mod_xsendfile.so'
 
@@ -33,7 +36,10 @@ module Xsendfile
       :content => conf.join("\n"),
       :mode => '644',
       :notify => service('apache2'),
-      :require => package('apache2-threaded-dev')
+      :require => [
+        package("apache2-mpm-worker"),
+        package("apache2-threaded-dev")
+      ]
 
     file '/etc/apache2/mods-available/xsendfile.load',
       :alias => 'load_xsendfile',
@@ -41,7 +47,10 @@ module Xsendfile
       :mode => '644',
       :require => file('xsendfile_conf'),
       :notify => service('apache2'),
-      :require => package('apache2-threaded-dev')
+      :require => [
+        package("apache2-mpm-worker"),
+        package("apache2-threaded-dev")
+      ]
 
    a2enmod 'xsendfile', :require => file('load_xsendfile')
   end
